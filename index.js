@@ -23,8 +23,36 @@ const APIController = (function () {
         method: "GET",
         headers: { Authorization: "Bearer " + token },
       }
-    );
+    )
     const data = await result.json();
     return data.categories.items;
   };
-  console.log("hello");
+  
+  const _getPlaylistByGenre = async (token, genreId) => {
+    const limit = 5;
+
+    const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token },
+    }
+    )
+    const data = await result.json();
+    return data.playlists.items;
+}
+
+    const _getSongs = async (token, tracksEndPoint) => {
+        const limit = 10;
+
+        const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
+            method: "GET",
+            headers: { Authorization: "Bearer " + token },
+        })
+        const data = await result.json();
+        return data.items;
+    }
+
+
+
+
+
+})
